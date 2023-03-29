@@ -1,12 +1,12 @@
 import './app.less';
-import githubLogo from './assets/github-logo.png';
+import githubLogo from './assets/githubLogo.png';
 const author = 'https://github.com/eldarlrd';
 
 export const App = () => {
   const gridField: preact.JSX.Element[] = [];
-  for (let i = 4; i < 8; i++) {
+  for (let i = 4; i < 20; i++) {
     gridField.push(
-      <div class='grid-element' key={i}>Grid {i}</div>
+      <div class='grid-element'>Grid {i}</div>
     );
   }
 
@@ -23,7 +23,7 @@ export const App = () => {
           <button>Rainbow Mode</button>
           <button>Eraser</button>
           <button>Clear</button>
-          <label for='grid-size'>4 x 4</label>
+          <label for='grid-size'>16 x 16</label>
           <input id='grid-size' type='range' />
         </div>
         <div id='grid'>

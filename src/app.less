@@ -4,29 +4,124 @@
   font-display: swap;
 }
 
+button {
+  cursor: pointer;
+  font-family: inherit;
+  outline: none;
+  border: 2px solid #2F2F2F;
+  border-radius: 4px;
+  font-size: 1em;
+  width: 10em;
+  height: 38px;
+  &:hover {
+    scale: 1.05;
+    transition: .1s;
+  }
+}
+// Containers
 :root {
   font-family: FrankyToys, cursive;
   scroll-behavior: smooth;
   color: #2F2F2F;
   background: #FAF9F6;
+  position: relative;
+  min-height: 100%;
 }
 
 #app {
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+header > h1 {
+  font-size: 38px;
+  cursor: default;
+  user-select: none;
+  @media only screen and (min-width: 768px) {
+    font-size: 54px;
+  }
+}
+// Main
 main {
   display: inherit;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 3em;
+  @media only screen and (min-width: 768px) {
+    & {
+      flex-direction: row;
+      gap: 5em;
+    }
+  }
+  label {
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+#grid {
+  background: red;
+  width: 300px;
+  height: 300px;
+  @media only screen and (min-width: 768px) {
+    & {
+      width: 500px;
+      height: 500px;
+    }
+  }
 }
 
 #tools {
   display: inherit;
   flex-direction: column;
+  background: green;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  #color-picker {
+    cursor: pointer;
+    appearance: none;
+    width: 5rem;
+    height: 5rem;
+    outline: none;
+    padding: 0;
+    border: 0;
+    &:hover {
+      transition: .1s linear;
+      scale: 1.05;
+    }
+  }
 }
-
-button {
-  outline: none;
+// Footer
+footer {
+  position: absolute;
+  bottom: 0;
+  font-size: 18px;
+  cursor: default;
+  user-select: none;
+  margin-top: 2em;
+  padding-bottom: 2rem;
+  a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      transition: .1s linear;
+      font-size: 20px;
+      img {
+        scale: 1.1;
+        margin-right: 3px;
+        transition: .1s linear;
+      }
+    }
+    img {
+      width: 19px;
+      height: 19px;
+      vertical-align: -2px;
+      margin-right: 2px;
+    }
+  }
 }
