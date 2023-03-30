@@ -4,7 +4,7 @@ const author = 'https://github.com/eldarlrd';
 
 export const App = () => {
   const gridField: preact.JSX.Element[] = [];
-  for (let i = 4; i < 20; i++) {
+  for (let i = 1; i <= 16; i++) {
     gridField.push(
       <div class='grid-element'>Grid {i}</div>
     );
