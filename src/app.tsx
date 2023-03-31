@@ -23,7 +23,7 @@ export const App = () => {
           <button>Rainbow Mode</button>
           <button>Eraser</button>
           <button>Clear</button>
-          <label for='grid-size'>16 x 16</label>
+          <p>16 x 16</p>
           <input id='grid-size' type='range' />
         </div>
         <div id='grid'>
