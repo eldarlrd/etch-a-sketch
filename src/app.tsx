@@ -3,13 +3,13 @@ import githubLogo from './assets/githubLogo.png';
 const author = 'https://github.com/eldarlrd';
 
 export const App = () => {
+  console.log('Draw a penguin!');
   const gridField: preact.JSX.Element[] = [];
-  for (let i = 1; i <= 16; i++) {
+  for (let i = 1; i <= 16 * 16; i++) {
     gridField.push(
-      <div class='grid-element'>Grid {i}</div>
+      <div class='grid-element' />
     );
   }
-
   return (
     <>
       <header>

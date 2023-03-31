@@ -11,11 +11,38 @@ button {
   border: 2px solid #2F2F2F;
   border-radius: 4px;
   font-size: 1em;
-  width: 10em;
-  height: 38px;
+  width: 11em;
+  height: 42px;
+  background: white;
   &:hover {
     scale: 1.05;
-    transition: .1s;
+    transition: scale .1s linear;
+  }
+  &:nth-of-type(1):active { // Set permanently
+    background: #2F2F2F;
+    color: contrast(#2F2F2F); // Change value dynamically w/ TS
+  }
+  &:nth-of-type(2):active { // Set permanently
+    background: linear-gradient(
+      135deg,
+      red,
+      orange 20%,
+      #D0DE21,
+      #4FDC4A,
+      #2FC9E2,
+      #1C7FEE,
+      #5F15F2,
+      #BA0CF8,
+      #FB07D9
+    );
+  }
+  &:nth-of-type(3):active { // Set permanently
+    box-shadow: inset 3em 0 0 0 #FF4F4F,
+                inset -3em 0 0 0 #4F6FCF;
+  }
+  &:nth-of-type(4):active {
+    color: white;
+    background: #CC0030;
   }
 }
 // Containers
@@ -58,25 +85,9 @@ main {
     }
   }
   label {
+    user-select: none;
     font-weight: bold;
     font-size: 20px;
-  }
-}
-
-#grid {
-  width: 300px;
-  height: 300px;
-  box-shadow: 0 0 4px 1px #2F2F2F;
-  border-radius: 2px;
-  .grid-element {
-    background: white;
-    border: 1px solid black;
-  }
-  @media only screen and (min-width: 768px) {
-    & {
-      width: 500px;
-      height: 500px;
-    }
   }
 }
 
@@ -100,6 +111,31 @@ main {
     }
   }
 }
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr); // Change 1st value dynamically w/ TS
+  user-select: none;
+  width: 300px;
+  height: 300px;
+  box-shadow: 0 0 4px 1px #2F2F2F;
+  border-radius: 2px;
+  .grid-element {
+    background: white;
+  }
+  @media only screen and (min-width: 576px) {
+    & {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    & {
+      width: 500px;
+      height: 500px;
+    }
+  }
+}
 // Footer
 footer {
   position: absolute;
@@ -107,7 +143,6 @@ footer {
   font-size: 18px;
   cursor: default;
   user-select: none;
-  margin-top: 2em;
   padding-bottom: 2rem;
   a {
     text-decoration: none;
