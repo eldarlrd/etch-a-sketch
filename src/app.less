@@ -1,26 +1,104 @@
+// Grid element count
+@grid-count: 16;
+// Style variables
+@primary: #FAF9F6;
+@secondary: #2F2F2F;
+@tertiary: white;
+@transition: .1s linear;
+// Media variables
+@small: ~'only screen and (min-width: 576px)';
+@medium: ~'only screen and (min-width: 768px)';
+// Font setting
 @font-face { // by Balpirick Studio
   font-family: FrankyToys;
   src: url(FrankyToys.ttf);
   font-display: swap;
 }
+// Containers
+:root {
+  font-family: FrankyToys, cursive;
+  scroll-behavior: smooth;
+  position: relative;
+  min-height: 100%;
+  color: @secondary;
+  background: @primary;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+header > h1 {
+  font-size: 38px;
+  cursor: default;
+  user-select: none;
+  @media @medium {
+    font-size: 54px;
+  }
+}
+// Main content
+main {
+  display: inherit;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+  @media @medium {
+    & {
+      flex-direction: row;
+      gap: 5em;
+    }
+  }
+  p {
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
+    line-height: 0;
+  }
+}
+// Toolbox
+#tools {
+  display: inherit;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  #color-picker {
+    appearance: none;
+    outline: none;
+    padding: 0;
+    border: 0;
+    width: 5rem;
+    height: 5rem;
+    cursor: pointer;
+    &:hover {
+      transition: @transition;
+      scale: 1.05;
+    }
+  }
+}
 
 button {
-  cursor: pointer;
   font-family: inherit;
-  outline: none;
-  border: 2px solid #2F2F2F;
-  border-radius: 4px;
   font-size: 1em;
+  outline: none;
   width: 11em;
   height: 42px;
-  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid @secondary;
+  background: @tertiary;
   &:hover {
+    transition: scale @transition;
     scale: 1.05;
-    transition: scale .1s linear;
   }
   &:nth-of-type(1):active { // Set permanently
-    background: #2F2F2F;
-    color: contrast(#2F2F2F); // Change value dynamically w/ TS
+    color: contrast(@secondary); // Change value w/ TS
+    background: @secondary;
   }
   &:nth-of-type(2):active { // Set permanently
     background: linear-gradient(
@@ -41,171 +119,102 @@ button {
                 inset -3em 0 0 0 #4F6FCF;
   }
   &:nth-of-type(4):active {
-    color: white;
+    color: @tertiary;
     background: #CC0030;
   }
 }
-// Containers
-:root {
-  font-family: FrankyToys, cursive;
-  scroll-behavior: smooth;
-  color: #2F2F2F;
-  background: #FAF9F6;
-  position: relative;
-  min-height: 100%;
-}
-
-#app {
-  margin-bottom: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-header > h1 {
-  font-size: 38px;
-  cursor: default;
-  user-select: none;
-  @media only screen and (min-width: 768px) {
-    font-size: 54px;
-  }
-}
-// Main
-main {
-  display: inherit;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: center;
-  gap: 3em;
-  @media only screen and (min-width: 768px) {
-    & {
-      flex-direction: row;
-      gap: 5em;
-    }
-  }
-  p {
-    line-height: 0;
-    user-select: none;
-    font-weight: bold;
-    font-size: 20px;
-  }
-}
-
-#tools {
-  display: inherit;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  #color-picker {
-    cursor: pointer;
-    appearance: none;
-    width: 5rem;
-    height: 5rem;
-    outline: none;
-    padding: 0;
-    border: 0;
-    &:hover {
-      transition: .1s linear;
-      scale: 1.05;
-    }
-  }
-}
-
-#grid {
-  display: grid;
-  grid-template-columns: repeat(16, 1fr); // Change 1st value dynamically w/ TS
-  user-select: none;
-  width: 300px;
-  height: 300px;
-  box-shadow: 0 0 4px 1px #2F2F2F;
-  border-radius: 2px;
-  .grid-element {
-    background: white;
-  }
-  @media only screen and (min-width: 576px) {
-    & {
-      width: 400px;
-      height: 400px;
-    }
-  }
-  @media only screen and (min-width: 768px) {
-    & {
-      width: 500px;
-      height: 500px;
-    }
-  }
-}
-
+// Range slider
 #grid-size {
   appearance: none;
   outline: none;
   width: 6rem;
   height: 6px;
   border-radius: 6px;
-  background: #2F2F2F;
+  background: @secondary;
 }
-#grid-size::-webkit-slider-thumb {
-  cursor: grab;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #FAF9F6;
-  border: 2px solid #2F2F2F;
-}
+// Firefox
 #grid-size::-moz-range-thumb {
+  appearance: none;
   cursor: grab;
+  border-radius: 50%;
+  border: 2px solid @secondary;
+  background: @primary;
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  background: #FAF9F6;
-  border: 2px solid #2F2F2F;
-}
-#grid-size:hover::-webkit-slider-thumb {
-  border-color: #2F2F2F;
-  background: #2F2F2F;
 }
 #grid-size:hover::-moz-range-thumb {
-  border-color: #2F2F2F;
-  background: #2F2F2F;
-}
-#grid-size:active::-webkit-slider-thumb {
-  cursor: grabbing;
+  border-color: @secondary;
+  background: @secondary;
 }
 #grid-size:active::-moz-range-thumb {
   cursor: grabbing;
 }
-#grid-size::-moz-range-progress {
-  background: #FAF9F6;
+#grid-size::-moz-range-progress { // Firefox only
+  background: @primary;
   height: 2px;
+}
+// Chromium
+#grid-size::-webkit-slider-thumb {
+  &:extend(#grid-size::-moz-range-thumb);
+  width: 18px;
+  height: 18px;
+}
+#grid-size:hover::-webkit-slider-thumb {
+  &:extend(#grid-size:hover::-moz-range-thumb);
+}
+#grid-size:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+// Sketcher
+#grid {
+  display: grid;
+  grid-template-columns: repeat(@grid-count, 1fr); // Change value w/ TS
+  user-select: none;
+  width: 300px;
+  height: 300px;
+  box-shadow: 0 0 4px 1px @secondary;
+  border-radius: 2px;
+  .grid-element {
+    background: @tertiary;
+  }
+  @media @small {
+    & {
+      width: 400px;
+      height: 400px;
+    }
+  }
+  @media @medium {
+    & {
+      width: 500px;
+      height: 500px;
+    }
+  }
 }
 // Footer
 footer {
+  padding-bottom: 2rem;
   position: absolute;
-  bottom: 0;
+  user-select: none;
   font-size: 18px;
   cursor: default;
-  user-select: none;
-  padding-bottom: 2rem;
+  bottom: 0;
   a {
     text-decoration: none;
     color: inherit;
     &:hover {
-      transition: .1s linear;
+      transition: @transition;
       font-size: 20px;
       img {
-        scale: 1.1;
+        transition: @transition;
         margin-right: 3px;
-        transition: .1s linear;
+        scale: 1.1;
       }
     }
     img {
       width: 19px;
       height: 19px;
-      vertical-align: -2px;
       margin-right: 2px;
+      vertical-align: -2px;
     }
   }
 }
