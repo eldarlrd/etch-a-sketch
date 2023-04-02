@@ -101,6 +101,7 @@ button {
     background: @picked-color;
   }
   &:nth-of-type(2):active { // Set permanently
+    text-shadow: 1px 1px @tertiary;
     background: linear-gradient(
       135deg,
       red,
@@ -121,6 +122,7 @@ button {
   &:nth-of-type(4):active {
     color: @tertiary;
     background: #CC0030;
+    text-shadow: 1px 1px @secondary;
   }
 }
 // Range slider
@@ -134,7 +136,6 @@ button {
 }
 // Firefox
 #grid-size::-moz-range-thumb {
-  appearance: none;
   cursor: grab;
   border-radius: 50%;
   border: 2px solid @secondary;
