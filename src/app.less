@@ -8,7 +8,6 @@
 @medium: ~'only screen and (min-width: 768px)';
 // Dynamically changed
 @picked-color: @secondary;
-@grid-count: 16;
 // Font setting
 @font-face { // by Balpirick Studio
   font-family: FrankyToys;
@@ -17,6 +16,7 @@
 }
 // Containers
 :root {
+  --grid-count: 16;
   font-family: FrankyToys, cursive;
   scroll-behavior: smooth;
   position: relative;
@@ -96,34 +96,35 @@ button {
     transition: scale @transition;
     scale: 1.05;
   }
-  &:nth-of-type(1):active { // Set permanently
-    color: contrast(@picked-color); // Change value w/ TS
-    background: @picked-color;
-  }
-  &:nth-of-type(2):active { // Set permanently
-    text-shadow: 1px 1px @tertiary;
-    background: linear-gradient(
-      135deg,
-      red,
-      orange 20%,
-      #D0DE21,
-      #4FDC4A,
-      #2FC9E2,
-      #1C7FEE,
-      #5F15F2,
-      #BA0CF8,
-      #FB07D9
-    );
-  }
-  &:nth-of-type(3):active { // Set permanently
-    box-shadow: inset 3em 0 0 0 #FF4F4F,
-                inset -3em 0 0 0 #4F6FCF;
-  }
-  &:nth-of-type(4):active {
-    color: @tertiary;
-    background: #CC0030;
-    text-shadow: 1px 1px @secondary;
-  }
+}
+// Active button styles
+.color-selection-active {
+  color: contrast(@picked-color); // Change value w/ TS
+  background: @picked-color;
+}
+.rainbow-mode-active {
+  text-shadow: 1px 1px @tertiary;
+  background: linear-gradient(
+    135deg,
+    red,
+    orange 20%,
+    #D0DE21,
+    #4FDC4A,
+    #2FC9E2,
+    #1C7FEE,
+    #5F15F2,
+    #BA0CF8,
+    #FB07D9
+  );
+}
+.eraser-active {
+  box-shadow: inset 3em 0 0 0 #FF4F4F,
+              inset -3em 0 0 0 #4F6FCF;
+}
+.clear-active {
+  color: @tertiary;
+  background: #CC0030;
+  text-shadow: 1px 1px @secondary;
 }
 // Range slider
 #grid-size {
@@ -174,13 +175,14 @@ button {
 // Sketcher
 #grid {
   display: grid;
-  grid-template-columns: repeat(@grid-count, 1fr); // Change value w/ TS
+  grid-template-columns: repeat(var(--grid-count), 1fr); // Change value w/ TS
   user-select: none;
   width: 300px;
   height: 300px;
   box-shadow: 0 0 4px 1px @secondary;
   border-radius: 2px;
   .grid-element {
+    border: 1px solid black;
     background: @tertiary;
   }
   @media @small {
