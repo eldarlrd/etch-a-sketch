@@ -2,23 +2,23 @@ import { useState } from 'preact/hooks';
 import './app.less';
 import githubLogo from './assets/githubLogo.png';
 const author = 'https://github.com/eldarlrd';
+const rootStyle = document.documentElement.style;
 
 export const App = () => {
   // Color selection
   const [ color, setColor ] = useState('#2F2F2F');
   const [ colorActive, setColorActive ] = useState(true);
-  const colorSelect = (props: string) => {
+  const colorSelect = (strColor: string) => {
     setEraserActive(false);
     setRainbowActive(false);
     setClearActive(false);
     setColorActive(true);
-    setColor(props);
-    const cleaned = props.replace('#', '');
-    console.log(cleaned);
-    if (parseInt('0x' + cleaned, 16) <= parseInt('0x' + 'AFAFB2', 16) ) {
-      document.documentElement.style.setProperty('--contrast', 'white');
-    } else document.documentElement.style.setProperty('--contrast', 'black');
-    document.documentElement.style.setProperty('--picked-color', props);
+    setColor(strColor);
+    rootStyle.setProperty('--picked-color', strColor);
+    const hexColor = strColor.replace('#', '');
+    parseInt('0x' + hexColor, 16) <= parseInt('0x' + '808080', 16)
+      ? rootStyle.setProperty('--contrast', 'white')
+      : rootStyle.setProperty('--contrast', 'black');
   };
   // Rainbow mode
   const [ rainbowActive, setRainbowActive ] = useState(false);
@@ -46,9 +46,9 @@ export const App = () => {
   };
   // Grid generator
   const [ gridCount, setGridCount ] = useState(16);
-  const gridGenerator = (props: string) => {
-    document.documentElement.style.setProperty('--grid-count', props);
-    setGridCount(+props);
+  const gridGenerator = (rangeValue: string) => {
+    rootStyle.setProperty('--grid-count', rangeValue);
+    setGridCount(+rangeValue);
   };
   const gridField: preact.JSX.Element[] = [];
   for (let i = 1; i <= gridCount * gridCount; i++) {
@@ -65,7 +65,8 @@ export const App = () => {
 
       <main>
         <div id='tools'>
-          <input onInput={e => colorSelect((e.target as HTMLInputElement).value)} id='color-picker' type='color' value={color} />
+          <input id='color-picker' type='color' value={color}
+                 onInput={e => colorSelect((e.target as HTMLInputElement).value)} />
           <button onClick={() => colorSelect(color)}
                   class={colorActive ? 'color-selection-active' : ''}>
                   Color Selection
@@ -83,8 +84,9 @@ export const App = () => {
                   Clear
           </button>
           <p>{gridCount} x {gridCount}</p>
-          <input onInput={e => gridGenerator((e.target as HTMLInputElement).value)} value={gridCount} min='4' max='64' step='1'
-          id='grid-size' type='range' />
+          <input id='grid-size' type='range'
+                 min='4' max='64' value={gridCount}
+                 onInput={e => gridGenerator((e.target as HTMLInputElement).value)} />
         </div>
         <div id='grid'>
           {gridField}
