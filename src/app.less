@@ -8,6 +8,8 @@
 @medium: ~'only screen and (min-width: 768px)';
 // Dynamically changed
 @picked-color: @secondary;
+@contrast: @tertiary;
+@grid-count: 16;
 // Font setting
 @font-face { // by Balpirick Studio
   font-family: FrankyToys;
@@ -16,7 +18,6 @@
 }
 // Containers
 :root {
-  --grid-count: 16;
   font-family: FrankyToys, cursive;
   scroll-behavior: smooth;
   position: relative;
@@ -99,8 +100,8 @@ button {
 }
 // Active button styles
 .color-selection-active {
-  color: contrast(@picked-color); // Change value w/ TS
-  background: @picked-color;
+  color: var(--contrast, @contrast); // Change value w/ TS
+  background: var(--picked-color, @picked-color);
 }
 .rainbow-mode-active {
   text-shadow: 1px 1px @tertiary;
@@ -175,7 +176,7 @@ button {
 // Sketcher
 #grid {
   display: grid;
-  grid-template-columns: repeat(var(--grid-count), 1fr); // Change value w/ TS
+  grid-template-columns: repeat(var(--grid-count, @grid-count), 1fr); // Change value w/ TS
   user-select: none;
   width: 300px;
   height: 300px;
