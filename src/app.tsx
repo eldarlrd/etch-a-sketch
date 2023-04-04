@@ -53,14 +53,13 @@ export const App = () => {
   const [ mouseDown, setMouseDown ] = useState(false);
   const draw = (e: MouseEvent) => {
     const target = e.target as HTMLDivElement;
-    if (mouseDown) {
+    if (mouseDown || e.type === 'click') {
       if (eraserActive)
         target.style.background = 'white';
       else if (rainbowActive) {
         colorRandomizer();
         target.style.background = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`;
-      } else if (e.type === 'mouseover')
-          target.style.background = color;
+      } else target.style.background = color;
     }
   };
   // Grid generator
@@ -78,7 +77,8 @@ export const App = () => {
   for (let i = 1; i <= gridCount * gridCount; i++) {
     gridField.push(
       <div class='grid-element'
-           onMouseOver={e => draw(e as preact.JSX.TargetedMouseEvent<HTMLDivElement>)}
+           onClick={e => draw(e)}
+           onMouseOver={e => draw(e)}
            onMouseDown={() => setMouseDown(true)}
            onMouseUp={() => setMouseDown(false)} />
     );
