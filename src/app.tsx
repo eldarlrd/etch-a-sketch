@@ -5,15 +5,18 @@ const author = 'https://github.com/eldarlrd';
 const rootStyle = document.documentElement.style;
 
 export const App = () => {
-  // Color selection
-  const [ color, setColor ] = useState('#2F2F2F');
-  const [ colorActive, setColorActive ] = useState(true);
-  const colorSelect = (strColor: string) => {
-    setEraserActive(false);
+  // Reset active mode
+  const resetActive = () => {
+    setColorActive(false);
     setRainbowActive(false);
+    setEraserActive(false);
     setClearActive(false);
-    setColorActive(true);
-    setColor(strColor);
+  };
+  // Color selection
+  const [ colorActive, setColorActive ] = useState(true);
+  const [ color, setColor ] = useState('#2F2F2F');
+  const colorSelect = (strColor: string) => {
+    resetActive(); setColorActive(true); setColor(strColor);
     rootStyle.setProperty('--picked-color', strColor);
     const hexColor = strColor.replace('#', '');
     parseInt('0x' + hexColor, 16) <= parseInt('0x' + '808080', 16)
@@ -23,26 +26,17 @@ export const App = () => {
   // Rainbow mode
   const [ rainbowActive, setRainbowActive ] = useState(false);
   const rainbowMode = () => {
-    setEraserActive(false);
-    setColorActive(false);
-    setClearActive(false);
-    setRainbowActive(true);
+    resetActive(); setRainbowActive(true);
   };
   // Eraser
   const [ eraserActive, setEraserActive ] = useState(false);
   const eraser = () => {
-    setColorActive(false);
-    setRainbowActive(false);
-    setClearActive(false);
-    setEraserActive(true);
+    resetActive(); setEraserActive(true);
   };
   // Clear
   const [ clearActive, setClearActive ] = useState(false);
   const clear = () => {
-    setColorActive(false);
-    setRainbowActive(false);
-    setEraserActive(false);
-    setClearActive(true);
+    resetActive(); setClearActive(true);
   };
   // Grid generator
   const [ gridCount, setGridCount ] = useState(16);
