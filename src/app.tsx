@@ -20,8 +20,8 @@ export const App = () => {
     rootStyle.setProperty('--picked-color', strColor);
     const hexColor = strColor.replace('#', '');
     parseInt('0x' + hexColor, 16) <= parseInt('0x' + '808080', 16)
-      ? rootStyle.setProperty('--contrast', 'white')
-      : rootStyle.setProperty('--contrast', 'black');
+    ? rootStyle.setProperty('--contrast', 'white')
+    : rootStyle.setProperty('--contrast', 'black');
   };
   // Rainbow mode
   const [ rainbowActive, setRainbowActive ] = useState(false);
@@ -36,18 +36,38 @@ export const App = () => {
   // Clear
   const [ clearActive, setClearActive ] = useState(false);
   const clear = () => {
-    resetActive(); setClearActive(true);
+    setClearActive(true);
+    setTimeout(() => setClearActive(false), 400);
+    gridElement.forEach((e: any) => {
+      e.style.background= 'white';
+    });
+  };
+  // Draw
+  const [ mouseDown, setMouseDown ] = useState(false);
+  const draw = (e: any) => {
+    if (eraserActive && mouseDown)
+      e.target.style.background = 'white';
+    else if (e.type === 'mouseover' && mouseDown)
+      e.target.style.background = color;
   };
   // Grid generator
+  const gridElement = Array.from(document.getElementsByClassName('grid-element'));
   const [ gridCount, setGridCount ] = useState(16);
   const gridGenerator = (rangeValue: string) => {
+    gridElement.forEach((e: any) => {
+      e.style.background= 'white';
+    });
     rootStyle.setProperty('--grid-count', rangeValue);
     setGridCount(+rangeValue);
   };
+  // Grid display
   const gridField: preact.JSX.Element[] = [];
   for (let i = 1; i <= gridCount * gridCount; i++) {
     gridField.push(
-      <div class='grid-element' />
+      <div class='grid-element' id={i.toString()}
+           onMouseOver={(e: any) => draw(e)}
+           onMouseDown={() => setMouseDown(true)}
+           onMouseUp={() => setMouseDown(false)} />
     );
   };
 
@@ -61,20 +81,20 @@ export const App = () => {
         <div id='tools'>
           <input id='color-picker' type='color' value={color}
                  onInput={e => colorSelect((e.target as HTMLInputElement).value)} />
-          <button onClick={() => colorSelect(color)}
-                  class={colorActive ? 'color-selection-active' : ''}>
+          <button class={colorActive ? 'color-selection-active' : ''}
+                  onClick={() => colorSelect(color)}>
                   Color Selection
           </button>
-          <button onClick={rainbowMode}
-                  class={rainbowActive ? 'rainbow-mode-active': ''}>
+          <button class={rainbowActive ? 'rainbow-mode-active': ''}
+                  onClick={rainbowMode}>
                   Rainbow Mode
           </button>
-          <button onClick={eraser}
-                  class={eraserActive ? 'eraser-active': ''}>
+          <button class={eraserActive ? 'eraser-active': ''}
+                  onClick={eraser}>
                   Eraser
           </button>
-          <button onClick={clear}
-                  class={clearActive ? 'clear-active': ''}>
+          <button class={clearActive ? 'clear-active': ''}
+                  onClick={clear}>
                   Clear
           </button>
           <p>{gridCount} x {gridCount}</p>

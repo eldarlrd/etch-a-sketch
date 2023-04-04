@@ -10,8 +10,8 @@
 @picked-color: @secondary;
 @contrast: @tertiary;
 @grid-count: 16;
-// Font setting
-@font-face { // by Balpirick Studio
+// Font by Balpirick Studio
+@font-face {
   font-family: FrankyToys;
   src: url(FrankyToys.ttf);
   font-display: swap;
@@ -183,8 +183,8 @@ button {
   box-shadow: 0 0 4px 1px @secondary;
   border-radius: 2px;
   .grid-element {
-    border: 1px solid black;
-    background: @tertiary;
+    border: 1px solid black; // Temporary
+    background: var(--tertiary, @tertiary);
   }
   @media @small {
     & {
