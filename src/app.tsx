@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import './app.less';
 import githubLogo from './assets/githubLogo.png';
-const author = 'https://github.com/eldarlrd';
+const author: string = 'https://github.com/eldarlrd';
 const rootStyle = document.documentElement.style;
 
 export const App = () => {
@@ -25,50 +25,51 @@ export const App = () => {
   };
   // Rainbow mode
   const [ rainbowActive, setRainbowActive ] = useState(false);
-  const rainbowMode = () => {
-    resetActive(); setRainbowActive(true);
+  const rainbowMode = () => { resetActive(); setRainbowActive(true); };
+  // Eraser
+  const [ eraserActive, setEraserActive ] = useState(false);
+  const eraser = () => { resetActive(); setEraserActive(true); };
+  // Clear
+  const [ clearActive, setClearActive ] = useState(false);
+  const clear = () => {
+    setClearActive(true);
+    setTimeout(() => setClearActive(false), 400);
+    wipe();
   };
-  // Rainbow randomizer
+  // Wipe grid
+  const wipe = () => {
+    gridElement.forEach(e => {
+      e.style.background = 'white';
+    });
+  };
+  // Color randomizer
   const randomRGB: number[] = [];
   const colorRandomizer = () => {
     randomRGB[0] = Math.floor(Math.random() * 256);
     randomRGB[1] = Math.floor(Math.random() * 256);
     randomRGB[2] = Math.floor(Math.random() * 256);
   };
-  // Eraser
-  const [ eraserActive, setEraserActive ] = useState(false);
-  const eraser = () => {
-    resetActive(); setEraserActive(true);
-  };
-  // Clear
-  const [ clearActive, setClearActive ] = useState(false);
-  const clear = () => {
-    setClearActive(true);
-    setTimeout(() => setClearActive(false), 400);
-    gridElement.forEach((e: any) => {
-      e.style.background = 'white';
-    });
-  };
   // Draw
   const [ mouseDown, setMouseDown ] = useState(false);
-  const draw = (e: any) => {
+  const draw = (e: MouseEvent) => {
+    const target = e.target as HTMLDivElement;
     if (mouseDown) {
       if (eraserActive)
-        e.target.style.background = 'white';
+        target.style.background = 'white';
       else if (rainbowActive) {
         colorRandomizer();
-        e.target.style.background = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`;
+        target.style.background = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`;
       } else if (e.type === 'mouseover')
-          e.target.style.background = color;
+          target.style.background = color;
     }
   };
   // Grid generator
-  const gridElement = Array.from(document.getElementsByClassName('grid-element'));
+  const gridElement = Array.from(
+    document.getElementsByClassName('grid-element') as HTMLCollectionOf<HTMLDivElement>
+  );
   const [ gridCount, setGridCount ] = useState(16);
   const gridGenerator = (rangeValue: string) => {
-    gridElement.forEach((e: any) => {
-      e.style.background = 'white';
-    });
+    wipe();
     rootStyle.setProperty('--grid-count', rangeValue);
     setGridCount(+rangeValue);
   };
@@ -77,7 +78,7 @@ export const App = () => {
   for (let i = 1; i <= gridCount * gridCount; i++) {
     gridField.push(
       <div class='grid-element'
-           onMouseOver={(e: any) => draw(e)}
+           onMouseOver={e => draw(e as preact.JSX.TargetedMouseEvent<HTMLDivElement>)}
            onMouseDown={() => setMouseDown(true)}
            onMouseUp={() => setMouseDown(false)} />
     );
