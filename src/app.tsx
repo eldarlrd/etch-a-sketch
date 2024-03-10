@@ -1,12 +1,14 @@
 import { useState } from 'preact/hooks';
-import './app.less';
-import githubLogo from './assets/githubLogo.png';
-const author: string = 'https://github.com/eldarlrd';
+import '@/app.less';
+import { type JSX } from 'preact/jsx-runtime';
+
+import githubLogo from '@/assets/githubLogo.png';
+const author = 'https://github.com/eldarlrd';
 const rootStyle = document.documentElement.style;
 
-export const App = () => {
+export const App = (): JSX.Element => {
   // Reset active mode
-  const resetActive = () => {
+  const resetActive = (): void => {
     setColorActive(false);
     setRainbowActive(false);
     setEraserActive(false);
@@ -15,43 +17,43 @@ export const App = () => {
   // Color selection
   const [ colorActive, setColorActive ] = useState(true);
   const [ color, setColor ] = useState('#2F2F2F');
-  const colorSelect = (strColor: string) => {
+  const colorSelect = (strColor: string): void => {
     resetActive(); setColorActive(true); setColor(strColor);
     rootStyle.setProperty('--picked-color', strColor);
     const hexColor = strColor.replace('#', '');
-    parseInt('0x' + hexColor, 16) <= parseInt('0x' + '808080', 16)
+    parseInt(`0x${  hexColor}`, 16) <= parseInt('0x' + '808080', 16)
       ? rootStyle.setProperty('--contrast', 'white')
       : rootStyle.setProperty('--contrast', 'black');
   };
   // Rainbow mode
   const [ rainbowActive, setRainbowActive ] = useState(false);
-  const rainbowMode = () => { resetActive(); setRainbowActive(true); };
+  const rainbowMode = (): void => { resetActive(); setRainbowActive(true); };
   // Eraser
   const [ eraserActive, setEraserActive ] = useState(false);
-  const eraser = () => { resetActive(); setEraserActive(true); };
+  const eraser = (): void => { resetActive(); setEraserActive(true); };
   // Clear
   const [ clearActive, setClearActive ] = useState(false);
-  const clear = () => {
+  const clear = (): void => {
     setClearActive(true);
-    setTimeout(() => setClearActive(false), 400);
+    setTimeout(() => { setClearActive(false); }, 400);
     wipe();
   };
   // Wipe grid
-  const wipe = () => {
+  const wipe = (): void => {
     gridElement.forEach(e => {
       e.style.background = 'white';
     });
   };
   // Color randomizer
   const randomRGB: number[] = [];
-  const colorRandomizer = () => {
+  const colorRandomizer = (): void => {
     randomRGB[0] = Math.floor(Math.random() * 256);
     randomRGB[1] = Math.floor(Math.random() * 256);
     randomRGB[2] = Math.floor(Math.random() * 256);
   };
   // Draw
   const [ mouseDown, setMouseDown ] = useState(false);
-  const draw = (e: MouseEvent) => {
+  const draw = (e: MouseEvent): void => {
     const target = e.target as HTMLDivElement;
     if (mouseDown || e.type === 'click') {
       if (eraserActive)
@@ -67,20 +69,20 @@ export const App = () => {
     document.getElementsByClassName('grid-element') as HTMLCollectionOf<HTMLDivElement>
   );
   const [ gridCount, setGridCount ] = useState(16);
-  const gridGenerator = (rangeValue: string) => {
+  const gridGenerator = (rangeValue: string): void => {
     wipe();
     rootStyle.setProperty('--grid-count', rangeValue);
     setGridCount(+rangeValue);
   };
   // Grid display
-  const gridField: preact.JSX.Element[] = [];
+  const gridField: JSX.Element[] = [];
   for (let i = 1; i <= gridCount * gridCount; i++) {
     gridField.push(
       <div class='grid-element'
-           onClick={e => draw(e)}
-           onMouseOver={e => draw(e)}
-           onMouseDown={() => setMouseDown(true)}
-           onMouseUp={() => setMouseDown(false)} />
+           onClick={e => { draw(e); }}
+           onMouseOver={e => { draw(e); }}
+           onMouseDown={() => { setMouseDown(true); }}
+           onMouseUp={() => { setMouseDown(false); }} />
     );
   };
 
@@ -93,9 +95,9 @@ export const App = () => {
       <main>
         <div id='tools'>
           <input id='color-picker' type='color' value={color}
-                 onInput={e => colorSelect((e.target as HTMLInputElement).value)} />
+                 onInput={e => { colorSelect((e.target as HTMLInputElement).value); }} />
           <button class={colorActive ? 'color-selection-active' : ''}
-                  onClick={() => colorSelect(color)}>
+                  onClick={() => { colorSelect(color); }}>
                   Color Selection
           </button>
           <button class={rainbowActive ? 'rainbow-mode-active': ''}
@@ -113,7 +115,7 @@ export const App = () => {
           <p>{gridCount} x {gridCount}</p>
           <input id='grid-size' type='range'
                  min='4' max='64' value={gridCount}
-                 onInput={e => gridGenerator((e.target as HTMLInputElement).value)} />
+                 onInput={e => { gridGenerator((e.target as HTMLInputElement).value); }} />
         </div>
         <div id='grid'>
           {gridField}
@@ -131,4 +133,5 @@ export const App = () => {
   );
 }
 
+// Easter Egg
 console.log('Draw a penguin!');

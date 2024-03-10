@@ -4,5 +4,8 @@ import preact from '@preact/preset-vite';
 // https://vitejs.dev/config
 export default defineConfig({
   base: '/etch-a-sketch/',
-  plugins: [preact()]
+  plugins: [preact()],
+  resolve: {
+    alias: { '@': '/src' }
+  }
 });

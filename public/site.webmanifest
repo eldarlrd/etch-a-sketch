@@ -1,0 +1,23 @@
+{
+  "name": "Etch A Sketch",
+  "short_name": "Etch A Sketch",
+  "dir": "ltr",
+  "lang": "en",
+  "categories": [
+    "entertainment"
+  ],
+  "display": "standalone",
+  "orientation": "natural",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "description": "A Digital Etch A Sketch",
+  "start_url": "https://eldarlrd.github.io/etch-a-sketch/",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
