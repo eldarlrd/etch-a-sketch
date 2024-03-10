@@ -1,7 +1,7 @@
 {
   "name": "etch-a-sketch",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "module",
   "keywords": [
     "etch a sketch",
@@ -18,8 +18,14 @@
     "preview": "vite preview",
     "deployer": "pnpm build && gh-pages -b prod -m 'build(prod): deployment' -d dist",
     "lint": "eslint src --ext .ts,.tsx --report-unused-disable-directives",
-    "pretty": "prettier '{src,__{tests,mocks,snapshots}__}/**/*.{ts,tsx}' --write",
-    "format": "pnpm lint --fix && pnpm pretty"
+    "style": "stylelint 'src/**/*.{css,pcss,scss,sass,less,styl}'",
+    "pretty": "prettier '{src,__{tests,mocks,snapshots}__}/**/*.{ts,tsx,less}' --write",
+    "format": "pnpm lint --fix && pnpm style --fix && pnpm pretty"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard-less"
+    ]
   },
   "prettier": {
     "singleQuote": true,
@@ -50,6 +56,8 @@
     "gh-pages": "^6.1.1",
     "less": "^4.2.0",
     "prettier": "^3.2.5",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard-less": "^3.0.1",
     "typescript": "^5.4.2",
     "vite": "^5.1.5"
   }
