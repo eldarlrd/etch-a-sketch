@@ -24,9 +24,12 @@ export const App = (): JSX.Element => {
     setColor(strColor);
     rootStyle.setProperty('--picked-color', strColor);
     const hexColor = strColor.replace('#', '');
-    parseInt(`0x${hexColor}`, 16) <= parseInt('0x808080', 16) ?
-      rootStyle.setProperty('--contrast', 'white')
-    : rootStyle.setProperty('--contrast', 'black');
+    rootStyle.setProperty(
+      '--contrast',
+      parseInt(`0x${hexColor}`, 16) <= parseInt('0x808080', 16) ?
+        'white'
+      : 'black'
+    );
   };
 
   // Rainbow mode
@@ -76,7 +79,7 @@ export const App = (): JSX.Element => {
       if (eraserActive) target.style.background = 'white';
       else if (rainbowActive) {
         colorRandomizer();
-        target.style.background = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`;
+        target.style.background = `rgb(${randomRGB[0].toString()}, ${randomRGB[1].toString()}, ${randomRGB[2].toString()})`;
       } else target.style.background = color;
     }
   };
@@ -171,10 +174,10 @@ export const App = (): JSX.Element => {
       <footer>
         © 2023 - 2024{' '}
         <a
-          title='Go to the Source'
+          title='Source'
           target='_blank'
           type='text/html'
-          rel='noopener noreferrer nofollow external author'
+          rel='author external noreferrer'
           href='https://github.com/eldarlrd/etch-a-sketch'>
           <img alt='GitHub' src={logo} />
           eldarlrd{' '}

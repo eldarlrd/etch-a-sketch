@@ -6,7 +6,7 @@
 > - **[Preact](https://preactjs.com)**
 > - **[TypeScript](https://typescriptlang.org)**
 > - **[Less](https://lesscss.org)**
-> - **[Vite](https://vitejs.dev)**
+> - **[Vite](https://vite.dev)**
 >
 > and functions as a digital toy.
 
