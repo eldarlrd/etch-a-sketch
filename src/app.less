@@ -23,17 +23,20 @@
   font-family: FrankyToys, cursive;
   scroll-behavior: smooth;
   position: relative;
-  min-height: 100%;
   color: @secondary;
   background: @primary;
 }
 
 #app {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height: 100dvh;
   align-items: center;
-  margin-bottom: 6.25rem;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0;
 }
 
 header > h1 {
@@ -224,9 +227,9 @@ main {
 }
 
 footer {
-  padding-bottom: 1.25rem;
-  position: absolute;
+  margin-top: 2rem;
   user-select: none;
+  margin-bottom: 1.25rem;
   font-size: 1.125rem;
   text-align: center;
   bottom: 0;
@@ -245,13 +248,7 @@ footer {
 
     &:hover {
       transition: @transition;
-      font-size: 1.25rem;
-
-      img {
-        transition: @transition;
-        margin-right: 0.1875rem;
-        scale: 1.1;
-      }
+      scale: 1.1;
     }
   }
 }
